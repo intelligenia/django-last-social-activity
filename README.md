@@ -1,11 +1,38 @@
 # django-last-social-activity
 
-A simple application for Django to fetch the last posts of your social network profiles in your site.
+A simple application for [Django](https://www.djangoproject.com/) to fetch the last posts of your social network profiles in your site.
 
 # Introduction
 
 This package allows you to fetch your last status from your favorite social networks without having to
-reimplment any functionality or integrating them on the browser side.
+reimplement any functionality or integrating them on the browser side.
+
+The idea is having [Django template tags](https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/) ready to load your last posts in templates:
+
+```html
+{# Load django-last-social-activity template tags #}
+{% load last_social_activity %}
+
+<div class="my-social-networks">
+  {# Get the last 10 items of your RSS as defined in settings.py #}
+  {% last_rss_items 10 %}
+
+  {# Get the last 3 posts of your Facebook wall #}
+  {% last_facebook_posts 3 %}
+
+  {# Get the last 8 tweets #}
+  {% last_tweeets 8 %}
+
+  {# Get the last 12 images of Instagram #}
+  {% last_instagram_media 12 %}
+
+  {# Get the last 15 pins of Pinterest #}
+  {% last_pinterest_pins 15 %}
+</div>
+
+```
+
+The idea is personalize the default templates in your **templates** folder as you need.
 
 # Installation
 
@@ -37,7 +64,17 @@ They are included in the requirements of this package so you won't have to insta
 # Configuration
 
 ## Django settings.py
-The first step is configure what social networks you want to include in your site.
+The first step is include the application **last_social_activity** to your INSTALLED_APPS tuple:
+
+```python
+INSTALLED_APPS = (
+  #...
+  "last_social_activity"
+  #...
+)
+
+
+The second step is configuring what social networks you want to include in your site.
 
 Put this dictionary in your **settings.py** file filling the.
 
@@ -95,6 +132,79 @@ Don't forget to execute migrations to create cache table for this application.
 ```sh
 python manage.py migrate
 ```
+
+# Use
+
+## Template tags
+
+Load this template tag in your templates:
+
+```html
+{% load last_social_activity %}
+```
+
+For example:
+
+```html
+
+{# Get the last 10 items of your RSS as defined in settings.py #}
+{% last_rss_items 10 %}
+
+{# Get the last 3 posts of your Facebook wall #}
+{% last_facebook_posts 3 %}
+
+{# Get the last 8 tweets #}
+{% last_tweeets 8 %}
+
+{# Get the last 12 images of Instagram #}
+{% last_instagram_media 12 %}
+
+{# Get the last 15 pins of Pinterest #}
+{% last_pinterest_pins 15 %}
+
+```
+
+## Customization
+
+Customize each one of the templates creating a directory **last_social_activity** with one child with the name
+**social_networks**. That directory will contain a template for each social network (and your RSS channel if is configured):
+
+- facebook.html
+- instagram.html
+- pinterest.html
+- rss.html
+- twitter.html
+
+
+### Facebook
+
+You have a list of post objects called **posts** with the following attributes:
+
+- id: id of this post
+- name: title of the post.
+- created_time: creation datetime of the post.
+- type: type of the post.
+- message: content of the post.
+- link: link to this facebook post.
+- permalink_url: link to this facebook post.
+
+Take a look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/facebook.html) for an example.
+
+### Instagram
+
+Look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/instagram.html).
+
+### Pinterest
+
+Look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/pinterest.html).
+
+### RSS
+
+Look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/rss.html).
+
+### Twitter
+
+Look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/twitter.html).
 
 # Authors
 - Francisco Morales Gea (REMOVETHISfrancisco.REMOVETHISmorales@intelligenia.com )
