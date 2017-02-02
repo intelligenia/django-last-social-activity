@@ -1,0 +1,34 @@
+{% load static from staticfiles %}
+{% load thumbnail %}
+{% if pins|length > 0 %}
+    <div class="pinterest_gallery" data-num_items="{{pins|length}}" data-num_pins="{{pins|length}}">
+        <ul id="pinterest_gallery_container" class="pinterest_gallery_container">
+            {% for pin in pins %}
+                <li class="pinterest_gallery_item">
+                    {% thumbnail pin.image.original.url "800x600" crop="center" as im %}
+                        <img src="{{ im.url }}" class="pin-{{forloop.counter}}" style="height:744px">
+                    {% endthumbnail %}
+                    <div class="pinterest_gallery_item-description">
+                        {% if pinterest_user %}
+                            <div class="pinterest_gallery_item-pinterest_user">
+                                <div class="note">{{pin.note}}</div>
+                                <div class="profile">
+                                    <span class="img-profile">
+                                        <img class="img-circle" src="{{pinterest_user.image.60x60.url}}" alt="{{pinterest_user.first_name}} {{pinterest_user.last_name}}" />
+                                    </span>
+                                    <span class="user-profile">
+                                        {{pinterest_user.first_name}} {{pinterest_user.last_name}}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <div class="pinterest_gallery pinterest_gallery-empty" data-num_items="0" data-num_pins="0">
+        <div></div>
+    </div>
+{% endif %}

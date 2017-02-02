@@ -1,0 +1,18 @@
+<div>
+    <a target="_blank" href="https://www.instagram.com/{{instagram_username}}"><h3><span class="fa fa-instagram"></span></h3></a>
+    {% if instagram_media_items|length > 0 %}
+        <div class="instagram">
+            <ul class="instagram-timeline">
+                {% for instagram_media_item in instagram_media_items %}
+                    <li class="instagram-timeline-media_instagram">
+                        <a href="{{instagram_media_item.link}}">
+                            <img src="{{instagram_media_item.images.thumbnail.url}}"
+                                 alt="{{instagram_media_item.caption.text}}"
+                                 title="{{instagram_media_item.caption.text}}" />
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>

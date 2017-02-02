@@ -1,0 +1,17 @@
+<div class="twitter twitter-last_tweets-container">
+    <a target="_blank" href="{{profile_url}}"><h3><span class="fa fa-twitter"></span></h3></a>
+    {% if tweets|length > 0 %}
+        <div class="twitter-last_tweets">
+            <ul class="timeline twiter-timeline">
+                {% for tweet in tweets  %}
+                    <li class="tweet">
+                        <a class="tweet-link" href="https://twitter.com/{{username}}/status/{{tweet.id}}">
+                            {{tweet.text}}
+                        </a>
+                        <span class="tweet-date">{{tweet.created_at}}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>

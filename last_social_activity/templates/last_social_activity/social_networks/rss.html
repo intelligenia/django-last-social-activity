@@ -1,0 +1,18 @@
+<div class="rss rss-last_posts-container">
+    <a target="_blank" href="{{url}}"><h3><span class="fa fa-rss"></span></h3></a>
+    {% if rss_items|length > 0 %}
+        <div class="rss-last_posts">
+            <ul class="timeline rss-timeline">
+                {% for rss_item in rss_items  %}
+                    <li class="rss_item">
+                        <a class="rss_item-link" href="{{rss_item.link}}">{{rss_item.title}}</a>
+                        <div>
+                            {{rss_item.description|safe|striptags}}
+                        </div>
+                        <span class="rss_item-date">{{rss_item.pubdate}}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>

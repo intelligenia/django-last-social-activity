@@ -1,0 +1,31 @@
+<div class="facebook facebook-last_posts-container">
+    <a target="_blank" href="{{profile_url}}"><h3><span class="fa fa-facebook"></span></h3></a>
+    {% if posts|length > 0 %}
+        <div class="facebook-last_posts">
+            <ul class="timeline facebook-timeline">
+                {% for post in posts %}
+                    {% if post.message or post.name or post.link or post.permalink_url  %}
+                        <li class="post">
+                            <a class="post-link" href="https://facebook.com/{{post.id}}">
+                                {% if post.message %}
+                                    {{post.message}}
+                                {% else %}
+                                    {% if post.name %}
+                                        {{post.name}}
+                                    {% else %}
+                                        {% if post.link %}
+                                            {{post.link}}
+                                        {% else %}
+                                            {{post.permalink_url}}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            </a>
+                            <span class="facebook-date">{{post.created_at}}</span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
