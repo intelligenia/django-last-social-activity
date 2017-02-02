@@ -192,6 +192,8 @@ Take a look to the [default template](last_social_activity/templates/last_social
 
 ### Instagram
 
+Data available comes from the member **data** of the following URL: [https://api.instagram.com/v1/users/self/media/recent/?access_token=XXXX](https://www.instagram.com/developer/endpoints/users/#get_users_media_recent_self)
+
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/instagram.html).
 
 ### Pinterest
@@ -199,6 +201,8 @@ Look to the [default template](last_social_activity/templates/last_social_activi
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/pinterest.html).
 
 ### RSS
+
+All RSS data is available as context in the template in the **rss_items** list.
 
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/rss.html).
 
