@@ -57,7 +57,7 @@ class InstagramReader(object):
 	def _get_credentials(self):
 		instagram_credentials = settings.LAST_SOCIAL_ACTIVITY_CREDENTIALS.get("instagram")
 		if not instagram_credentials:
-			raise AssertionError(u"Credentials not found for twitter")
+			raise AssertionError(u"Credentials not found for instagram")
 
 		if type(instagram_credentials) is dict:
 			return instagram_credentials
