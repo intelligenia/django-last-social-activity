@@ -1,4 +1,6 @@
 # -.- coding: utf-8 -.-
+from __future__ import unicode_literals, absolute_import
+
 import dateutil
 from django import template
 from django.template import loader
