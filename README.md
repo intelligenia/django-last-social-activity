@@ -188,23 +188,23 @@ You have a list of post objects called **posts** with the following attributes:
 - link: link to this facebook post.
 - permalink_url: link to this facebook post.
 
-Take a look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/facebook.html) for an example.
+Take a look to the [default template](last_social_activity/templates/last_social_activity/social_networks/facebook.html) for an example.
 
 ### Instagram
 
-Look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/instagram.html).
+Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/instagram.html).
 
 ### Pinterest
 
-Look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/pinterest.html).
+Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/pinterest.html).
 
 ### RSS
 
-Look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/rss.html).
+Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/rss.html).
 
 ### Twitter
 
-Look to the [default template](master/last_social_activity/templates/last_social_activity/social_networks/twitter.html).
+Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/twitter.html).
 
 # Authors
 - Francisco Morales Gea (REMOVETHISfrancisco.REMOVETHISmorales@intelligenia.com )
