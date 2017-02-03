@@ -4,9 +4,11 @@ from __future__ import unicode_literals, absolute_import
 
 # Import urlopen in Python2 and 3
 try:
-	from urllib.request import urlopen
+	from urllib.request import urlopen, HTTPError
 except ImportError:
-	from urllib2 import urlopen
+	from urllib2 import urlopen, HTTPError
+
+from httplib import HTTPException
 
 import dateutil
 from bs4 import BeautifulSoup
@@ -31,8 +33,14 @@ class RssReader(object):
 
 		# If this URL does not exist or the chache has expired, get a new version of the RSS and update it
 		url = self.rss_url
-		data = urlopen(url)
-		soup = BeautifulSoup(data, 'xml')
+
+		try:
+			data = urlopen(url)
+			soup = BeautifulSoup(data, 'xml')
+		except (HttpError, HTTPException, ValueError) as e:
+			if SocialNetworkItemCache.hit("rss", num_items=num_items, rss_url=self.rss_url):
+				return SocialNetworkItemCache.get("rss", num_items=num_items, rss_url=self.rss_url).response_dict
+			return {'info': None, 'rss_items': [], 'url': self.url}
 
 		#info
 		title = soup.find('title')

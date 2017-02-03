@@ -6,6 +6,12 @@ import twitter
 import dateutil
 from django.conf import settings
 
+try:
+	from urllib.request import urlopen, HTTPError
+except ImportError:
+	from urllib2 import urlopen, HTTPError
+
+from httplib import HTTPException
 
 # A wrapper of the official Twitter API
 from last_social_activity.models import SocialNetworkItemCache
@@ -33,7 +39,13 @@ class TwitterReader(object):
 			return SocialNetworkItemCache.get("twitter", num_tweets).response_dict
 
 		# Otherwise, get from Twitter
-		tweets = self.api.GetUserTimeline(screen_name=self.username)[:num_tweets]
+		try:
+			tweets = self.api.GetUserTimeline(screen_name=self.username)[:num_tweets]
+		except (HttpError, HTTPException, ValueError, requests.exceptions.RequestException) as e:
+			if SocialNetworkItemCache.hit("twitter", num_tweets):
+				return SocialNetworkItemCache.get("twitter", num_tweets).response_dict
+			return []
+
 		tweet_list = []
 		for tweet in tweets:
 			tweet.created_at = dateutil.parser.parse(tweet.created_at)

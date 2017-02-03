@@ -10,6 +10,13 @@ try:
 except ImportError:
 	from urllib2 import urlopen
 
+try:
+	from urllib.request import urlopen, HTTPError
+except ImportError:
+	from urllib2 import urlopen, HTTPError
+
+from httplib import HTTPException
+
 import json
 
 from last_social_activity.models import SocialNetworkItemCache
@@ -35,8 +42,13 @@ class InstagramReader(object):
 
 		# Otherwise fetch data from instagram servers
 		url = InstagramReader.URL.format(self.access_token)
-		response = urlopen(url)
-		data = json.load(response)
+		try:
+			response = urlopen(url)
+			data = json.load(response)
+		except (HttpError, HTTPException, ValueError) as e:
+			if SocialNetworkItemCache.hit("instagram", num_images):
+				return SocialNetworkItemCache.get("instagram", num_images).response_dict
+			return []
 
 		meta = data.get('meta', None)
 		code = meta.get('code', None)

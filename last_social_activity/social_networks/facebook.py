@@ -7,6 +7,13 @@ from django.conf import settings
 from dateutil import parser
 import requests
 
+try:
+	from urllib.request import urlopen, HTTPError
+except ImportError:
+	from urllib2 import urlopen, HTTPError
+
+from httplib import HTTPException
+
 from last_social_activity.models import SocialNetworkItemCache
 
 
@@ -37,8 +44,15 @@ class FacebookReader(object):
 			'fields': 'type,created_time,link,permalink_url,message,message_tags,name,picture,full_picture,source',
 			'limit': num_posts
 		}
-		response = requests.get(FacebookReader.GET_POSTS_URL.format(self.profile), params=parameters)
-		posts = response.json().get('data')
+
+		try:
+			response = requests.get(FacebookReader.GET_POSTS_URL.format(self.profile), params=parameters)
+			posts = response.json().get('data')
+		except (HttpError, HTTPException, ValueError, requests.exceptions.RequestException) as e:
+			# If there is a hit, get from cache
+			if SocialNetworkItemCache.hit("facebook", num_posts):
+				return SocialNetworkItemCache.get("facebook", num_posts).response_dict
+			return []
 
 		for post in posts:
 			post['created_at'] = parser.parse(post.get('created_time')).isoformat()

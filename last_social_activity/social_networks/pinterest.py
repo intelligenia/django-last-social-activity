@@ -8,9 +8,11 @@ from django.conf import settings
 
 # Import urlopen in Python2 and 3
 try:
-	from urllib.request import urlopen
+	from urllib.request import urlopen, HTTPError
 except ImportError:
-	from urllib2 import urlopen
+	from urllib2 import urlopen, HTTPError
+
+from httplib import HTTPException
 
 
 # A simple Pinterest reader
@@ -42,8 +44,14 @@ class PinterestReader:
 		if SocialNetworkItemCache.hit("pinterest", num_pins):
 			return SocialNetworkItemCache.get("pinterest", num_pins).response_dict
 
-		response = urlopen(PinterestReader.LAST_PINS_URL.format(self.access_token, num_pins))
-		response_data = json.load(response)
+		try:
+			response = urlopen(PinterestReader.LAST_PINS_URL.format(self.access_token, num_pins))
+			response_data = json.load(response)
+		except (HttpError, HTTPException, ValueError) as e:
+			if SocialNetworkItemCache.hit("pinterest", num_pins):
+				return SocialNetworkItemCache.get("pinterest", num_pins).response_dict
+			return {"user": None, "last_pins": []}
+
 		last_pins = response_data.get('data', [])
 		for pin in last_pins:
 			creator_id = pin["creator"]["id"]
