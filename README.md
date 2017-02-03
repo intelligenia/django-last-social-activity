@@ -206,6 +206,8 @@ Look to the [default template](last_social_activity/templates/last_social_activi
 
 All RSS data is available as context in the template in the **rss_items** list.
 
+You can access to all the attributes of each of your RSS items: name, description, pubdate, etc.
+
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/rss.html).
 
 ### Twitter
