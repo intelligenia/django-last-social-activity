@@ -88,12 +88,15 @@ def last_facebook_posts(num_posts=5, template_path="last_social_activity/social_
 
 
 # Show last rss posts
-# Use {% last_rss_posts X %} where X is the number of posts to show
+# Use {% last_rss_posts SOURCE X %} where
+# SOURCE is the id of the RSS URL (especified in settings.py) and
+# X is the number of posts to show
 @register.simple_tag
-def last_rss_items(num_posts=5, template_path="last_social_activity/social_networks/rss.html"):
+def last_rss_items(rss_id, num_posts=5, template_path="last_social_activity/social_networks/rss.html"):
 	try:
-		rss_reader = RssReader()
-	except AssertionError:
+		rss_reader = RssReader(id=rss_id)
+	except AssertionError as e:
+		print e
 		return ""
 
 	rss_last_items = rss_reader.get_last_items(num_posts)

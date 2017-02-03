@@ -17,8 +17,8 @@ from last_social_activity.models import SocialNetworkItemCache
 
 class RssReader(object):
 
-	def __init__(self):
-		rss_settings = self._get_rss_settings()
+	def __init__(self, id):
+		rss_settings = self._get_rss_settings(id)
 		self.rss_url = rss_settings["rss_url"]
 		self.url = rss_settings["url"]
 
@@ -70,13 +70,15 @@ class RssReader(object):
 		return rss_last_items
 
 	# Return the settings
-	def _get_rss_settings(self):
+	def _get_rss_settings(self, id):
 		rss_settings = settings.LAST_SOCIAL_ACTIVITY_CREDENTIALS.get('rss')
 
 		if not rss_settings:
-			raise AssertionError(u"Settings not found for RSS")
+			raise AssertionError(u"Settings not found for RSS sources")
 
-		if type(rss_settings) is dict:
-			return rss_settings
+		particular_rss_settings = rss_settings.get(id)
 
-		raise AssertionError(u"No other settings source is implemented at the moment")
+		if type(particular_rss_settings) is dict:
+			return particular_rss_settings
+
+		raise AssertionError(u"No RSS settings for source {0} has been found".format(id))

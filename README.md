@@ -14,8 +14,8 @@ The idea is having [Django template tags](https://docs.djangoproject.com/en/1.10
 {% load last_social_activity %}
 
 <div class="my-social-networks">
-  {# Get the last 10 items of your RSS as defined in settings.py #}
-  {% last_rss_items 10 %}
+  {# Get the last 10 items of your RSS 'myblog' as defined in settings.py #}
+  {% last_rss_items 'myblog' 10 %}
 
   {# Get the last 3 posts of your Facebook wall #}
   {% last_facebook_posts 3 %}
@@ -101,8 +101,10 @@ LAST_SOCIAL_ACTIVITY_CREDENTIALS = {
 		"access_token" :"<facebook access token>"
 	},
 	"rss": {
-		"url": "<main URL of the site>",
-		"rss_url": "<RSS URL>",
+		"<RSS source id>"{
+			"url": "<main URL of the site>",
+			"rss_url": "<RSS URL>",
+		}
 	}
 }
 ```
@@ -147,8 +149,8 @@ For example:
 
 ```html
 
-{# Get the last 10 items of your RSS as defined in settings.py #}
-{% last_rss_items 10 %}
+{# Get the last 10 items of your RSS 'mysite' channel as defined in settings.py #}
+{% last_rss_items 'mysite' 10 %}
 
 {# Get the last 3 posts of your Facebook wall #}
 {% last_facebook_posts 3 %}
