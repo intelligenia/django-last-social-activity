@@ -1,4 +1,5 @@
 # -.- coding: utf-8 -.-
+
 from __future__ import unicode_literals, absolute_import
 
 import dateutil
@@ -18,7 +19,7 @@ register = template.Library()
 # Show last tweets
 # Use {% last_tweets X %} where X is the number of tweets to show
 @register.simple_tag
-def last_tweeets(num_tweets=5):
+def last_tweeets(num_tweets=5, template_path="last_social_activity/social_networks/twitter.html"):
 	try:
 		twitter_reader = TwitterReader()
 	except AssertionError as e:
@@ -29,7 +30,7 @@ def last_tweeets(num_tweets=5):
 		tweet["created_at"] = dateutil.parser.parse(tweet["created_at"])
 
 	# Render template with the last tweets
-	tag_template = loader.get_template("last_social_activity/social_networks/twitter.html")
+	tag_template = loader.get_template(template_path)
 	replacements = {"tweets": tweets, "profile_url": twitter_reader.profile_url, "username": twitter_reader.username}
 	return tag_template.render(replacements)
 
@@ -37,7 +38,7 @@ def last_tweeets(num_tweets=5):
 # Show last tweets
 # Use {% last_instagram_media X %} where X is the number of images to show
 @register.simple_tag
-def last_instagram_media(num_items=5):
+def last_instagram_media(num_items=5, template_path="last_social_activity/social_networks/instagram.html"):
 	try:
 		instagram_reader = InstagramReader()
 	except AssertionError:
@@ -45,7 +46,7 @@ def last_instagram_media(num_items=5):
 	instagram_reader.connect()
 	instagram_media_items = instagram_reader.get_last_media(num_items)
 	# Render template the last instagram media
-	tag_template = loader.get_template("last_social_activity/social_networks/instagram.html")
+	tag_template = loader.get_template(template_path)
 	replacements = {"instagram_media_items": instagram_media_items, "instagram_username": instagram_reader.profile}
 	return tag_template.render(replacements)
 
@@ -53,7 +54,7 @@ def last_instagram_media(num_items=5):
 # Show last tweets
 # Use {% last_pinterest_pins X %} where X is the number of images to show
 @register.simple_tag
-def last_pinterest_pins(num_pins=5):
+def last_pinterest_pins(num_pins=5, template_path="last_social_activity/social_networks/pinterest.html"):
 	try:
 		pinterest_reader = PinterestReader()
 	except AssertionError:
@@ -63,7 +64,7 @@ def last_pinterest_pins(num_pins=5):
 	pinterest_pins = pinterest_last_activity["last_pins"]
 	pinterest_user = pinterest_last_activity["user"]
 	# Render the last pins
-	tag_template = loader.get_template("last_social_activity/social_networks/pinterest.html")
+	tag_template = loader.get_template(template_path)
 	replacements = {"pins": pinterest_pins, "pinterest_user": pinterest_user}
 	return tag_template.render(replacements)
 
@@ -71,7 +72,7 @@ def last_pinterest_pins(num_pins=5):
 # Show last facebook posts
 # Use {% last_facebook_posts X %} where X is the number of posts to show
 @register.simple_tag
-def last_facebook_posts(num_posts=5):
+def last_facebook_posts(num_posts=5, template_path="last_social_activity/social_networks/facebook.html"):
 	try:
 		facebook_reader = FacebookReader()
 	except AssertionError:
@@ -81,7 +82,7 @@ def last_facebook_posts(num_posts=5):
 	for facebook_post in facebook_posts:
 		facebook_post["created_at"] = dateutil.parser.parse(facebook_post["created_at"])
 	# Render the last posts
-	tag_template = loader.get_template("last_social_activity/social_networks/facebook.html")
+	tag_template = loader.get_template(template_path)
 	replacements = {"posts": facebook_posts, "profile": facebook_reader.profile}
 	return tag_template.render(replacements)
 
@@ -89,7 +90,7 @@ def last_facebook_posts(num_posts=5):
 # Show last rss posts
 # Use {% last_rss_posts X %} where X is the number of posts to show
 @register.simple_tag
-def last_rss_items(num_posts=5):
+def last_rss_items(num_posts=5, template_path="last_social_activity/social_networks/rss.html"):
 	try:
 		rss_reader = RssReader()
 	except AssertionError:
@@ -100,6 +101,6 @@ def last_rss_items(num_posts=5):
 		rss_item["pubdate"] = dateutil.parser.parse(rss_item["pubdate"])
 
 	# Render the last posts
-	tag_template = loader.get_template("last_social_activity/social_networks/rss.html")
+	tag_template = loader.get_template(template_path)
 	replacements = {"rss_items": rss_last_items['rss_items'], "profile_info": rss_last_items['info'], "url": rss_last_items['url']}
 	return tag_template.render(replacements)
