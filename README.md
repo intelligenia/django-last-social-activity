@@ -215,8 +215,8 @@ Look to the [default template](last_social_activity/templates/last_social_activi
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/twitter.html).
 
 # Authors
-- Francisco Morales Gea (REMOVETHISfrancisco.REMOVETHISmorales@intelligenia.com )
-- Diego J. Romero López (diegoREMOVETHIS@intelligenia.com)
+- Francisco Morales Gea (REMOVETHISfrancisco.REMOVETHISmorales@intelligenia.com) (development)
+- Diego J. Romero López (diegoREMOVETHIS@intelligenia.com) (corresponding author, software architecture, caching and fault-tolerance)
 
 Remove REMOVETHIS before emailing to one of the authors.
 
