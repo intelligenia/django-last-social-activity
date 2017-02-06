@@ -7,9 +7,9 @@ A simple application for [Django](https://www.djangoproject.com/) to fetch the l
 This package allows you to fetch your last status from your favorite social networks without having to
 reimplement any functionality or integrating them on the browser side.
 
-Development repository is [https://github.com/intelligenia/django-last-social-activity](https://github.com/intelligenia/django-last-social-activity).
+The development repository is [https://github.com/intelligenia/django-last-social-activity](https://github.com/intelligenia/django-last-social-activity).
 
-The idea is having [Django template tags](https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/) ready to load your last posts in templates:
+The main aim of this software is having [Django template tags](https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/) ready to load your last posts in templates:
 
 ```html
 {# Load django-last-social-activity template tags #}
