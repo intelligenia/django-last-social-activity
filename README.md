@@ -7,6 +7,8 @@ A simple application for [Django](https://www.djangoproject.com/) to fetch the l
 This package allows you to fetch your last status from your favorite social networks without having to
 reimplement any functionality or integrating them on the browser side.
 
+Development repository is [https://github.com/intelligenia/django-last-social-activity](https://github.com/intelligenia/django-last-social-activity).
+
 The idea is having [Django template tags](https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/) ready to load your last posts in templates:
 
 ```html
@@ -36,13 +38,13 @@ The idea is personalize the default templates in your **templates** folder as yo
 
 # Installation
 
-When uploaded to pypi you would be able to install it easily:
+[This package is in pypi](https://pypi.python.org/pypi/django-last-social-activity) so you can install it easily using pip command:
 
 ```sh
 pip install django-last-social-activity
 ```
 
-or install it from this repository:
+or install it from [this GitHub repository](https://github.com/intelligenia/django-last-social-activity) if you want last features of the master branch:
 
 ```sh
 # Master will allways be stable
@@ -200,6 +202,8 @@ Look to the [default template](last_social_activity/templates/last_social_activi
 
 ### Pinterest
 
+Available fields are the ones returned by [https://api.pinterest.com/v1/me/pins/?access_token=XXXX](https://developers.pinterest.com/docs/api/pins/).
+
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/pinterest.html).
 
 ### RSS
@@ -211,6 +215,25 @@ You can access to all the attributes of each of your RSS items: name, descriptio
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/rss.html).
 
 ### Twitter
+
+Available context is a dict with the following structure:
+
+```python
+{
+	"tweets": [
+		{
+			"id": "<id of this tweet>",
+			"text": "<content of the tweet>",
+			"created_at": "<creation datetime of this tweet>"
+		},
+		# ...
+	],
+	"profile_url": "<twitter_profile_url>",
+	"username": "<twitter_username>"
+}
+
+
+```
 
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/twitter.html).
 
