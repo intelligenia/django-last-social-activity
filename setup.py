@@ -45,7 +45,7 @@ for dirpath, dirnames, filenames in os.walk('.'):
 
 setup(
     name="django-last-social-activity",
-    version="0.1.1",
+    version="0.1.2",
     author="intelligenia S.L.",
     author_email="diego@intelligenia.es",
     description="A simple application for Django to fetch the last posts of your social network profiles in your site.",
