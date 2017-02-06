@@ -69,7 +69,6 @@ They are included in the requirements of this package so you won't have to insta
 The first step is include the application **last_social_activity** to your INSTALLED_APPS tuple:
 
 ```python
-
 INSTALLED_APPS = (
   #...
   "last_social_activity"
