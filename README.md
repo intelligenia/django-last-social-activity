@@ -74,7 +74,7 @@ INSTALLED_APPS = (
   "last_social_activity"
   #...
 )
-
+```
 
 The second step is configuring what social networks you want to include in your site.
 
