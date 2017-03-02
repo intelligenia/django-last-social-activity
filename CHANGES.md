@@ -15,3 +15,8 @@ Version 0.1.2
 -------------
 
 * Fix readme code errors. 
+
+Version 0.1.3
+-------------
+
+* Make the cache more fault-tolerant.

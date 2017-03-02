@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from datetime import timedelta
 from django.conf import settings
+from django.core.exceptions import MultipleObjectsReturned
 from django.db import models
 from django.utils import timezone
 import json
@@ -70,7 +71,13 @@ class SocialNetworkItemCache(models.Model):
 		if social_network_type == "rss":
 			get_cache_filter["rss_url"] = rss_url
 
-		return SocialNetworkItemCache.objects.get(**get_cache_filter)
+		try:
+			return SocialNetworkItemCache.objects.get(**get_cache_filter)
+		# This shouldn't happen
+		# In the case of several objets with the same cache filter, delete the first one and get the second one
+		except MultipleObjectsReturned:
+			SocialNetworkItemCache.objects.filter(**get_cache_filter)[0].delete()
+			return SocialNetworkItemCache.objects.get(**get_cache_filter)
 
 
 	# Create a new cache entry
