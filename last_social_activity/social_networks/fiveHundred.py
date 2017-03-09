@@ -36,21 +36,33 @@ class FiveHundredReader(object):
 		self.api = None
 
 	def get_last_media(self, num_images=5):
-		url = FiveHundredReader.URL.format(self.access_token, self.profile, num_images)
-		response = urlopen(url)
-		data = json.load(response)
+
+		# If there is a hit, get from cache
+		if SocialNetworkItemCache.hit("fivehundred", num_images):
+			return SocialNetworkItemCache.get("fivehundred", num_images).response_dict
+
+		# Otherwise fetch data from 500px servers
+			url = FiveHundredReader.URL.format(self.access_token, self.profile, num_images)
+		try:
+			response = urlopen(url)
+			data = json.load(response)
+		except (HttpError, HTTPException, ValueError) as e:
+			if SocialNetworkItemCache.hit("fivehundred", num_images):
+				return SocialNetworkItemCache.get("fivehundred", num_images).response_dict
+			return []
+
 		media = data.get('photos', None)
 		print media
 		return media
 
-	# Return the credentials of the Instagram account
+	# Return the credentials of the 500px account
 	def _get_credentials(self):
-		instagram_credentials = settings.LAST_SOCIAL_ACTIVITY_CREDENTIALS.get("fivehundred")
-		if not instagram_credentials:
+		fivehundred_credentials = settings.LAST_SOCIAL_ACTIVITY_CREDENTIALS.get("fivehundred")
+		if not fivehundred_credentials:
 			raise AssertionError(u"Credentials not found for 500px")
 
-		if type(instagram_credentials) is dict:
-			return instagram_credentials
+		if type(fivehundred_credentials) is dict:
+			return fivehundred_credentials
 
 		raise AssertionError(u"No other credential source is implemented at the moment")
 
