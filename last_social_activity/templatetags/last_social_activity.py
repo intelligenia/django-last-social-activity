@@ -12,6 +12,7 @@ from last_social_activity.social_networks.instagram import InstagramReader
 from last_social_activity.social_networks.pinterest import PinterestReader
 from last_social_activity.social_networks.rss import RssReader
 from last_social_activity.social_networks.twitter import TwitterReader
+from last_social_activity.social_networks.fiveHundred import FiveHundredReader
 
 register = template.Library()
 
@@ -84,6 +85,20 @@ def last_facebook_posts(num_posts=5, template_path="last_social_activity/social_
 	# Render the last posts
 	tag_template = loader.get_template(template_path)
 	replacements = {"posts": facebook_posts, "profile": facebook_reader.profile}
+	return tag_template.render(replacements)
+
+
+@register.simple_tag
+def last_fivehundred_media(num_items=5):
+	try:
+		fivehundred_reader = FiveHundredReader()
+	except AssertionError:
+		return ""
+	fivehundred_reader.connect()
+	fivehundred_media_items = fivehundred_reader.get_last_media(num_items)
+	# Render template the last 500px media
+	tag_template = loader.get_template("last_social_activity/social_networks/fivehundred.html")
+	replacements = {"fivehundred_media_items": fivehundred_media_items, "profile": fivehundred_reader.profile}
 	return tag_template.render(replacements)
 
 

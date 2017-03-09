@@ -30,6 +30,9 @@ The main aim of this software is having [Django template tags](https://docs.djan
 
   {# Get the last 15 pins of Pinterest #}
   {% last_pinterest_pins 15 %}
+
+  {# Get the last 25 photos of 500px #}
+  {% last_fivehundred_media 25 %}
 </div>
 
 ```
@@ -103,6 +106,10 @@ LAST_SOCIAL_ACTIVITY_CREDENTIALS = {
 		"profile": "<facebook username>",
 		"access_token" :"<facebook access token>"
 	},
+	"fivehundred":{
+		"profile": "<500px username>",
+		"access_token": "<500px consumer key>"
+	}
 	"rss": {
 		"<RSS source id>"{
 			"url": "<main URL of the site>",

@@ -1,0 +1,19 @@
+<div>
+    <a target="_blank" href="https://www.500px.com/{{profile}}"><h3><span class="fa fa-500px"></span></h3></a>
+    {% if fivehundred_media_items|length > 0 %}
+        <div class="fivehundred">
+            <ul class="fivehundred-timeline">
+                {% for fivehundred_media_item in fivehundred_media_items %}
+                    <li class="fivehundred-timeline-media_fivehundred">
+                        <a href="https://www.500px.com/{{fivehundred_media_item.url}}">
+                            <img src="{{fivehundred_media_item.images.2.url}}"
+                                 alt="{{fivehundred_media_item.name}}"
+                                 title="{{fivehundred_media_item.name}}"
+                                 longdesc="{{fivehundred_media_item.description}}" />
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
