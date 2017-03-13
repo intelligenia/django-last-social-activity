@@ -110,6 +110,11 @@ LAST_SOCIAL_ACTIVITY_CREDENTIALS = {
 		"profile": "<500px username>",
 		"access_token": "<500px consumer key>"
 	}
+	"flickr":{
+		"access_token": "<flickr access token>",
+		"user_id": "<flickr user id>",
+		"album_id": "<album id>"
+	}
 	"rss": {
 		"<RSS source id>"{
 			"url": "<main URL of the site>",
@@ -173,6 +178,9 @@ For example:
 
 {# Get the last 15 pins of Pinterest #}
 {% last_pinterest_pins 15 %}
+
+{# Get the last 5 images of Flickr #}
+{% last_flickr_media 5 %}
 
 ```
 

@@ -8,6 +8,7 @@ from django.template import loader
 from django.conf import settings
 
 from last_social_activity.social_networks.facebook import FacebookReader
+from last_social_activity.social_networks.flickr import FlickrReader
 from last_social_activity.social_networks.instagram import InstagramReader
 from last_social_activity.social_networks.pinterest import PinterestReader
 from last_social_activity.social_networks.rss import RssReader
@@ -101,6 +102,19 @@ def last_fivehundred_media(num_items=5):
 	replacements = {"fivehundred_media_items": fivehundred_media_items, "profile": fivehundred_reader.profile}
 	return tag_template.render(replacements)
 
+
+@register.simple_tag
+def last_flickr_media(num_items=5):
+	try:
+		flickr_reader = FlickrReader()
+	except AssertionError:
+		return ""
+		flickr_reader.connect()
+	flickr_media_items = flickr_reader.get_last_media(num_items)
+	# Render template the last Flickr media
+	tag_template = loader.get_template("last_social_activity/social_networks/flickr.html")
+	replacements = {"flickr_media_items": flickr_media_items}
+	return tag_template.render(replacements)
 
 # Show last rss posts
 # Use {% last_rss_posts SOURCE X %} where
