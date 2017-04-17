@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.2.1
+-------------
+
+* Fix error when importing HTTPError.
+
 Version 0.2
 -------------
 
