@@ -1,0 +1,19 @@
+<div>
+    <a target="_blank" href="https://www.flickr.com/{{profile}}"><h3><span class="fa fa-flickr"></span></h3></a>
+    {% if flickr_media_items|length > 0 %}
+        <div class="flickr">
+            <ul class="flickr-timeline">
+                {% for flickr_media_item in flickr_media_items %}
+                    <li class="flickr-timeline-media_flickr">
+                        <a href="{{flickr_media_item.info.urls.url.0.content}}">
+                            <img src="{{flickr_media_item.size.Small.source}}"
+                                 alt="{{flickr_media_item.info.title.content}}"
+                                 title="{{flickr_media_item.info.title.content}}"
+                                 longdesc="{{flickr_media_item.info.description.content}}" />
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
