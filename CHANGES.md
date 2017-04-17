@@ -1,22 +1,27 @@
 Changes
 =======
 
-Version 0.1
+Version 0.2
 -------------
 
-* Basic social network activity fetching with cache. 
+* Flickr and 500px support. Contribution by Francisco Morales.
 
-Version 0.1.1
+Version 0.1.3
 -------------
 
-* Updated readme with some examples. 
+* Make the cache more fault-tolerant.
 
 Version 0.1.2
 -------------
 
 * Fix readme code errors. 
 
-Version 0.1.3
+Version 0.1.1
 -------------
 
-* Make the cache more fault-tolerant.
+* Updated readme with some examples. 
+
+Version 0.1
+-------------
+
+* Basic social network activity fetching with cache. 
