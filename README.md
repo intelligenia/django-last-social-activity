@@ -30,6 +30,12 @@ The main aim of this software is having [Django template tags](https://docs.djan
 
   {# Get the last 15 pins of Pinterest #}
   {% last_pinterest_pins 15 %}
+
+  {# Get the last 25 photos of 500px #}
+  {% last_fivehundred_media 25 %}
+
+  {# Get the last 5 photos of flickr #}
+  {% last_flickr_media 5 %}
 </div>
 
 ```
@@ -103,6 +109,15 @@ LAST_SOCIAL_ACTIVITY_CREDENTIALS = {
 		"profile": "<facebook username>",
 		"access_token" :"<facebook access token>"
 	},
+	"fivehundred":{
+		"profile": "<500px username>",
+		"access_token": "<500px consumer key>"
+	}
+	"flickr":{
+		"access_token": "<flickr access token>",
+		"user_id": "<flickr user id>",
+		"album_id": "<album id>"
+	}
 	"rss": {
 		"<RSS source id>"{
 			"url": "<main URL of the site>",
@@ -167,6 +182,12 @@ For example:
 {# Get the last 15 pins of Pinterest #}
 {% last_pinterest_pins 15 %}
 
+{# Get the last 25 photos of 500px #}
+{% last_fivehundred_media 25 %}
+
+{# Get the last 5 images of Flickr #}
+{% last_flickr_media 5 %}
+
 ```
 
 ## Customization
@@ -179,6 +200,8 @@ Customize each one of the templates creating a directory **last_social_activity*
 - pinterest.html
 - rss.html
 - twitter.html
+- fivehundred.html
+- flickr.html
 
 
 ### Facebook
@@ -206,6 +229,18 @@ Look to the [default template](last_social_activity/templates/last_social_activi
 Available fields are the ones returned by [https://api.pinterest.com/v1/me/pins/?access_token=XXXX](https://developers.pinterest.com/docs/api/pins/).
 
 Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/pinterest.html).
+
+### 500px
+
+Available fields are the ones returned by [https://api.500px.com/v1/photos?consumer_key=XXXX](https://github.com/500px/api-documentation).
+
+Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/fivehundred.html).
+
+### Flickr
+
+Available fields are the ones returned by [https://api.flickr.com/services/rest/](https://www.flickr.com/services/api/).
+
+Look to the [default template](last_social_activity/templates/last_social_activity/social_networks/flickr.html).
 
 ### RSS
 
