@@ -113,7 +113,7 @@ def last_flickr_media(num_items=5):
 	flickr_media_items = flickr_reader.get_last_media(num_items)
 	# Render template the last Flickr media
 	tag_template = loader.get_template("last_social_activity/social_networks/flickr.html")
-	replacements = {"flickr_media_items": flickr_media_items}
+	replacements = {"flickr_media_items": flickr_media_items, "profile":flickr_reader.user_id }
 	return tag_template.render(replacements)
 
 # Show last rss posts
