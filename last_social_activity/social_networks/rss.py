@@ -37,7 +37,7 @@ class RssReader(object):
 		try:
 			data = urlopen(url)
 			soup = BeautifulSoup(data, 'xml')
-		except (HttpError, HTTPException, ValueError) as e:
+		except (HTTPError, HTTPException, ValueError) as e:
 			if SocialNetworkItemCache.hit("rss", num_items=num_items, rss_url=self.rss_url):
 				return SocialNetworkItemCache.get("rss", num_items=num_items, rss_url=self.rss_url).response_dict
 			return {'info': None, 'rss_items': [], 'url': self.url}
