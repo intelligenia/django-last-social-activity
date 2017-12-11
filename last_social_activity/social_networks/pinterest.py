@@ -47,7 +47,7 @@ class PinterestReader:
 		try:
 			response = urlopen(PinterestReader.LAST_PINS_URL.format(self.access_token, num_pins))
 			response_data = json.load(response)
-		except (HttpError, HTTPException, ValueError) as e:
+		except (HTTPError, HTTPException, ValueError) as e:
 			if SocialNetworkItemCache.hit("pinterest", num_pins):
 				return SocialNetworkItemCache.get("pinterest", num_pins).response_dict
 			return {"user": None, "last_pins": []}
